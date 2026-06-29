@@ -11,7 +11,6 @@ def download_urls(urls: list, target: str):
         "outtmpl": f"{target}/%(id)s.%(ext)s",
     }
     info_file = target + "/info.txt"
-    print(info_file)
     ydl = yt_dlp.YoutubeDL(ydl_opts)
     for url in urls:
         if not url:
