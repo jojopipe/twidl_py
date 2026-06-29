@@ -10,12 +10,17 @@ def download_urls(urls: list, target: str):
         "cookiesfrombrowser": ("firefox",),
         "outtmpl": f"{target}/%(id)s.%(ext)s",
     }
+    info_file = target + "/info.txt"
+    print(info_file)
     ydl = yt_dlp.YoutubeDL(ydl_opts)
     for url in urls:
         if not url:
             continue
         try:
             ydl.download([url])
+            info = ydl.extract_info(url, download = False)
+            with open(info_file, "a+") as f:
+                f.write(str(info) + "\n")
         except Exception as e:
             if isinstance(e, yt_dlp.utils.ExtractorError):
                 continue
@@ -27,6 +32,7 @@ def download_urls(urls: list, target: str):
 def create_target(target: str):
     target_dir = target + ".d"
     os.makedirs(target_dir, mode = 511, exist_ok = True)
+    # _ = open(target_dir + "/info.txt", "w+") # create file
     return target_dir
 
 def urls_from_file(file: str) -> list:
