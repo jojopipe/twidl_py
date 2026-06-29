@@ -22,8 +22,9 @@ def download_urls(urls: list, target: str):
             with open(info_file, "a+") as f:
                 f.write(str(info) + "\n")
         except Exception as e:
-            if isinstance(e, yt_dlp.utils.ExtractorError):
-                continue
+            with open(f"{target}/failed.txt", "a+") as f:
+                f.write(f"{url}: {str(e)}\n")
+            continue
     # TODO: add post info to seperate file (use extractor)
     ydl.close()
 
@@ -49,6 +50,7 @@ def main():
     urls = urls_from_file(args.file)
     target = create_target(args.file)
     download_urls(urls, target)
+    os.rename(args.file, f"{target}/{os.path.basename(args.file)}")
 
 if __name__ == "__main__":
     main()
