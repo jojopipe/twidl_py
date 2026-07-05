@@ -26,7 +26,7 @@ def download_urls(urls: list, target: str):
             with open(f"{target}/failed.txt", "a+") as f:
                 f.write(f"{url}: {str(e)}\n")
             continue
-    # TODO: add post info to seperate file (use extractor)
+    print(f"[{urlc}/{urlc}]")
     ydl.close()
 
     return
