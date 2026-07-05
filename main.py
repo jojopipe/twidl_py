@@ -12,7 +12,9 @@ def download_urls(urls: list, target: str):
     }
     info_file = target + "/info.txt"
     ydl = yt_dlp.YoutubeDL(ydl_opts)
-    for url in urls:
+    urlc = len(urls)
+    for a, url in enumerate(urls):
+        print(f"[{a}/{urlc}]")
         if not url:
             continue
         try:
